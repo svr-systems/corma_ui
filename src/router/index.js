@@ -1,41 +1,42 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '@/views/Home.vue';
-import Services from '@/views/Services.vue';
-import Clients from '@/views/Clients.vue';
-import Contact from '@/views/Contact.vue';
-import Location from '@/views/Location.vue';
+import Main from '@/views/Main.vue';
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    name: 'Main',
+    component: Main,
   },
   {
     path: '/servicios',
-    name: 'Services',
-    component: Services,
+    redirect: '/#services',
   },
   {
     path: '/clientes',
-    name: 'Clients',
-    component: Clients,
+    redirect: '/#clients',
   },
   {
     path: '/ubicacion',
-    name: 'Location',
-    component: Location,
+    redirect: '/#location',
   },
   {
     path: '/contacto',
-    name: 'Contact',
-    component: Contact,
+    redirect: '/#contact',
   },
 ];
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (to.hash) {
+      return {
+        el: to.hash,
+        behavior: 'smooth',
+      };
+    }
+    return { top: 0 };
+  },
 });
 
 export default router;

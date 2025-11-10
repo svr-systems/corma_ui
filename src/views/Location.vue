@@ -1,6 +1,6 @@
 <template>
   <v-card elevation="24" :disabled="isLoading">
-    <v-card-text class="pa-0" style="min-height: 100vh">
+    <v-card-text class="pa-0">
       <div class="full-width-container">
         <div class="content-sections">
           <div class="content-wrapper py-16">

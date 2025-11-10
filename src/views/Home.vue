@@ -1,6 +1,6 @@
 <template>
   <v-card elevation="24" :disabled="isLoading">
-    <v-card-text>
+    <v-card-text class="pa-0">
       <div class="full-width-container">
         <v-sheet
           class="hero-section d-flex align-center"

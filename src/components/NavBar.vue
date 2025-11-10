@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar density="compact" :elevation="2" color="grey-darken-3">
+    <v-app-bar density="compact" :elevation="2" :color="navbarColor">
       <v-toolbar-title>
         <v-img
           :src="'data:' + logoUrl.ext + ';base64,' + logoUrl.b64"
@@ -12,7 +12,12 @@
       <v-spacer />
       <div v-if="!isMobile" class="d-flex align-center">
         <template v-for="(link, index) in links" :key="link.name">
-          <v-btn :to="link.route" variant="text" class="text-capitalize mx-1">
+          <v-btn
+            @click="scrollToSection(link.id)"
+            variant="text"
+            class="text-capitalize mx-1"
+            :class="{ 'active-link': activeSection === link.id }"
+          >
             {{ link.name }}
           </v-btn>
           <span v-if="index < links.length - 1" class="separator mx-1">|</span>
@@ -39,7 +44,7 @@
 
 <script setup>
 // importaciones de librerías
-import { ref, computed } from "vue";
+import { ref, computed, inject } from "vue";
 import { useDisplay } from "vuetify";
 
 const display = useDisplay();
@@ -49,7 +54,9 @@ import { mockApiData } from "@/services/mockData.js";
 
 const logoUrl = computed(() => mockApiData.navbar.logoUrl);
 const socialLinks = computed(() => mockApiData.navbar.socialLinks);
+const navbarColor = computed(() => mockApiData.navbar.backgroudColor.hexa);
 
+const activeSection = inject('activeSection') || ref('home');
 
 /*
 import { useApiDataStore } from "@/stores/apiData.js";
@@ -67,17 +74,37 @@ if (!appDataStore.isLoaded && !appDataStore.isLoading) {
 */
 
 const links = [
-  { name: "Nosotros", route: "/" },
-  { name: "Servicios", route: "/servicios" },
-  { name: "Clientes", route: "/clientes" },
-  { name: "Ubicación", route: "/ubicacion" },
-  { name: "Contacto", route: "/contacto" },
+  { name: "Nosotros", id: "home" },
+  { name: "Servicios", id: "services" },
+  { name: "Clientes", id: "clients" },
+  { name: "Ubicación", id: "location" },
+  { name: "Contacto", id: "contact" },
 ];
+
+const scrollToSection = (id) => {
+  const element = document.getElementById(id);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' });
+  }
+};
 </script>
 
 <style scoped>
+.v-app-bar {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
 .separator {
   color: #666;
   font-size: 0.9rem;
+}
+
+.active-link {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff !important;
 }
 </style>
