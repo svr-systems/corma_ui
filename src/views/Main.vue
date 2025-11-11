@@ -1,34 +1,29 @@
 <template>
   <div class="main-container">
-    <div id="home">
-      <Home />
-    </div>
-
-    <div id="services">
-      <Services />
-    </div>
-
-    <div id="clients">
-      <Clients />
-    </div>
-
-    <div id="location">
-      <Location />
-    </div>
-
-    <div id="contact">
-      <Contact />
+    <div v-for="section in availableSections" :key="section.id" :id="section.id">
+      <component :is="components[section.id]" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, inject } from "vue";
+import { ref, onMounted, onUnmounted, inject, computed } from "vue";
+import { mockApiData } from "@/services/mockData.js";
 import Home from './Home.vue'
 import Services from './Services.vue'
 import Clients from './Clients.vue'
 import Location from './Location.vue'
 import Contact from './Contact.vue'
+
+const components = {
+  home: Home,
+  services: Services,
+  clients: Clients,
+  location: Location,
+  contact: Contact
+};
+
+const availableSections = computed(() => mockApiData.navbar.navLinks.filter(link => link.id === 'contact' || mockApiData[link.id]));
 
 const activeSection = inject('activeSection');
 const observer = ref(null);

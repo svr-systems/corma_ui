@@ -194,6 +194,7 @@ onMounted(() => {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
+  min-height: 100vh;
 }
 
 /* título principal */

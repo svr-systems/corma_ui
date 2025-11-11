@@ -55,6 +55,7 @@ import { mockApiData } from "@/services/mockData.js";
 const logoUrl = computed(() => mockApiData.navbar.logoUrl);
 const socialLinks = computed(() => mockApiData.navbar.socialLinks);
 const navbarColor = computed(() => mockApiData.navbar.backgroudColor.hexa);
+const links = computed(() => mockApiData.navbar.navLinks);
 
 const activeSection = inject('activeSection') || ref('home');
 
@@ -72,14 +73,6 @@ if (!appDataStore.isLoaded && !appDataStore.isLoading) {
   appDataStore.loadAllData();
 }
 */
-
-const links = [
-  { name: "Nosotros", id: "home" },
-  { name: "Servicios", id: "services" },
-  { name: "Clientes", id: "clients" },
-  { name: "Ubicación", id: "location" },
-  { name: "Contacto", id: "contact" },
-];
 
 const scrollToSection = (id) => {
   activeSection.value = id;
