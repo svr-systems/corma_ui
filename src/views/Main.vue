@@ -23,14 +23,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, provide } from "vue";
+import { ref, onMounted, onUnmounted, inject } from "vue";
 import Home from './Home.vue'
 import Services from './Services.vue'
 import Clients from './Clients.vue'
 import Location from './Location.vue'
 import Contact from './Contact.vue'
 
-const activeSection = ref('home');
+const activeSection = inject('activeSection');
 const observer = ref(null);
 
 const updateActiveSection = (entries) => {
@@ -68,8 +68,6 @@ onUnmounted(() => {
     observer.value.disconnect();
   }
 });
-
-provide('activeSection', activeSection);
 </script>
 <style scoped>
 .main-container {

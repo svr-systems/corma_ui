@@ -20,11 +20,14 @@ import NavBar from "@/components/NavBar.vue";
 // Estado y referencias
 const alert = ref(null);
 const app = getCurrentInstance()?.appContext.app;
+const activeSection = ref('home');
 
 // Proveedores globales
 provide("alert", {
   show: (color, msg) => alert.value?.show(color, msg),
 });
+
+provide('activeSection', activeSection);
 </script>
 
 <style>
