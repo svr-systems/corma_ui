@@ -23,51 +23,20 @@
           </div>
         </v-sheet>
 
-        <div class="content-sections">
+        <div v-if="sections.length > 0" class="content-sections">
           <div class="content-wrapper py-16">
-            <v-row justify="center" class="mb-16">
+            <v-row
+              v-for="(section, index) in sections"
+              :key="section.key"
+              justify="center"
+              :class="{ 'mb-16': index < sections.length - 1 }"
+            >
               <v-col cols="12" md="10" lg="8">
                 <div class="text-content">
                   <h2 class="section-title mb-6 text-center">
-                    {{ companyInfo?.mission?.title }}
+                    {{ section.title }}
                   </h2>
-                  <p class="section-text text-body-1 text-left" v-html="companyInfo?.mission?.description.replace(/\n/g, '<br>')">
-                  </p>
-                </div>
-              </v-col>
-            </v-row>
-
-            <v-row justify="center" class="mb-16">
-              <v-col cols="12" md="10" lg="8">
-                <div class="text-content">
-                  <h2 class="section-title mb-6 text-center">
-                    {{ companyInfo?.vision?.title }}
-                  </h2>
-                  <p class="section-text text-body-1 text-left" v-html="companyInfo?.vision?.description.replace(/\n/g, '<br>')">
-                  </p>
-                </div>
-              </v-col>
-            </v-row>
-
-            <v-row justify="center" class="mb-16">
-              <v-col cols="12" md="10" lg="8">
-                <div class="text-content">
-                  <h2 class="section-title mb-6 text-center">
-                    {{ companyInfo?.values?.title }}
-                  </h2>
-                  <p class="section-text text-body-1 text-left" v-html="companyInfo?.values?.description.replace(/\n/g, '<br>')">
-                  </p>
-                </div>
-              </v-col>
-            </v-row>
-
-            <v-row justify="center">
-              <v-col cols="12" md="10" lg="8">
-                <div class="text-content">
-                  <h2 class="section-title mb-6 text-center">
-                    {{ companyInfo?.history?.title }}
-                  </h2>
-                  <p class="section-text text-body-1 text-left" v-html="companyInfo?.history?.description.replace(/\n/g, '<br>')">
+                  <p class="section-text text-body-1 text-left" v-html="section.description.replace(/\n/g, '<br>')">
                   </p>
                 </div>
               </v-col>
@@ -89,6 +58,17 @@ const isLoading = ref(false);
 import { mockApiData } from "@/services/mockData.js";
 const heroData = computed(() => mockApiData.home.hero);
 const companyInfo = computed(() => mockApiData.home.companyInfo);
+
+const sections = computed(() => {
+  if (!companyInfo.value) return [];
+  return Object.keys(companyInfo.value)
+    .filter(key => companyInfo.value[key]?.title && companyInfo.value[key]?.description)
+    .map(key => ({
+      key,
+      title: companyInfo.value[key].title,
+      description: companyInfo.value[key].description
+    }));
+});
 
 // obtener el estilo de background
 const getBackgroundStyle = () => {
