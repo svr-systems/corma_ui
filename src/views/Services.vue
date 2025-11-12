@@ -26,7 +26,12 @@
                   v-for="(service, serviceIndex) in category.services"
                   :key="serviceIndex"
                 >
-                  <v-card class="service-card mx-auto" max-width="500">
+                  <v-card
+                    class="service-card mx-auto"
+                    max-width="500"
+                    :class="{ 'clickable-card': service.detailedDescription }"
+                    @click="service.detailedDescription ? openServiceDialog(service) : null"
+                  >
                     <v-img
                       class="align-end text-white service-image"
                       height="200"
@@ -36,7 +41,7 @@
                       <v-card-title>{{ service.title }}</v-card-title>
                     </v-img>
 
-                    <v-card-text class="service-card-text">
+                    <v-card-text v-if="!service.detailedDescription" class="service-card-text">
                       <div class="service-description">{{ service.description }}</div>
                     </v-card-text>
                   </v-card>
@@ -48,18 +53,33 @@
       </div>
     </v-card-text>
   </v-card>
+
+  <ServiceDetailDialog
+    v-if="selectedService"
+    :service="selectedService"
+    :is-active="dialogOpen"
+    @update:is-active="dialogOpen = $event"
+  />
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import { inject } from "vue";
+import ServiceDetailDialog from "@/components/DlgDetail.vue";
 
 const alert = inject("alert");
 const isLoading = ref(false);
+const dialogOpen = ref(false);
+const selectedService = ref(null);
 
 import { mockApiData } from "@/services/mockData.js";
 
 const servicesData = computed(() => mockApiData.services);
+
+const openServiceDialog = (service) => {
+  selectedService.value = service;
+  dialogOpen.value = true;
+};
 
 
 // api global con pinia:
@@ -163,6 +183,16 @@ onMounted(() => {
   height: 400px;
   display: flex;
   flex-direction: column;
+}
+
+.clickable-card {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.clickable-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
 
 .service-card-text {
