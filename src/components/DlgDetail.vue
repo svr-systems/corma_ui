@@ -10,7 +10,7 @@
       <v-card-text class="pa-0">
         <v-row class="fill-height">
           <v-col cols="12" md="6" class="left-col">
-            <div class="image-container">
+            <div v-if="service.imageUrl" class="image-container">
               <v-img
                 :src="'data:' + service.imageUrl.ext + ';base64,' + service.imageUrl.b64"
                 class="service-image"
@@ -18,7 +18,7 @@
                 :alt="service.title"
               />
               <div class="image-overlay">
-                <h2 class="image-title">{{ service.title }}</h2>
+                <h2 v-if="service.title" class="image-title">{{ service.title }}</h2>
               </div>
             </div>
           </v-col>
@@ -39,8 +39,12 @@
               </div>
 
               <div class="descriptions-section">
-                <p v-if="service.detailedDescription" class="text-body-1 mb-4">{{ service.detailedDescription }}</p>
+                <p v-if="service.detailedDescription || service.descriptionDlg" class="text-body-1 mb-4">{{ service.detailedDescription || service.descriptionDlg }}</p>
                 <p v-if="service.description" class="text-body-1">{{ service.description }}</p>
+              </div>
+
+              <div v-if="service.price" class="price-section">
+                <p class="text-body-1">Precio: ${{ service.price }}</p>
               </div>
             </div>
           </v-col>

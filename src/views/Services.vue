@@ -29,8 +29,8 @@
                   <v-card
                     class="service-card mx-auto"
                     max-width="500"
-                    :class="{ 'clickable-card': service.detailedDescription }"
-                    @click="service.detailedDescription ? openServiceDialog(service) : null"
+                    :class="{ 'clickable-card': service.detailedDescription || service.descriptionDlg }"
+                    @click="(service.detailedDescription || service.descriptionDlg) ? openServiceDialog(service) : null"
                   >
                     <v-img
                       class="align-end text-white service-image"
@@ -41,7 +41,7 @@
                       <v-card-title>{{ service.title }}</v-card-title>
                     </v-img>
 
-                    <v-card-text v-if="!service.detailedDescription" class="service-card-text">
+                    <v-card-text v-if="!service.detailedDescription && service.description" class="service-card-text">
                       <div class="service-description">{{ service.description }}</div>
                     </v-card-text>
                   </v-card>
