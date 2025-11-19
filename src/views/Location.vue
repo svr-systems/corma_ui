@@ -73,62 +73,7 @@
               </v-col>
             </v-row>
 
-            <v-row justify="center" class="mb-16">
-              <v-col cols="12" sm="4" class="mb-6 mb-sm-0">
-                <v-card class="contact-card text-center pa-6" elevation="2">
-                  <v-icon size="48" color="primary" class="mb-4"
-                    >mdi-whatsapp</v-icon
-                  >
-                  <h3 class="contact-title mb-2">WhatsApp</h3>
-                  <p class="contact-info mb-4">{{ locationData.contact.whatsapp }}</p>
-                  <v-btn
-                    variant="outlined"
-                    color="primary"
-                    class="text-capitalize"
-                    :href="locationData.contact.whatsappUrl"
-                    target="_blank"
-                  >
-                    Mensaje
-                  </v-btn>
-                </v-card>
-              </v-col>
-
-              <v-col cols="12" sm="4" class="mb-6 mb-sm-0">
-                <v-card class="contact-card text-center pa-6" elevation="2">
-                  <v-icon size="48" color="primary" class="mb-4"
-                    >mdi-phone</v-icon
-                  >
-                  <h3 class="contact-title mb-2">Teléfono</h3>
-                  <p class="contact-info mb-4">{{ locationData.contact.phone }}</p>
-                  <v-btn
-                    variant="outlined"
-                    color="primary"
-                    class="text-capitalize"
-                    :href="`tel:+52${locationData.contact.phone.replace(/-/g, '')}`"
-                  >
-                    Llamar
-                  </v-btn>
-                </v-card>
-              </v-col>
-
-              <v-col cols="12" sm="4">
-                <v-card class="contact-card text-center pa-6" elevation="2">
-                  <v-icon size="48" color="primary" class="mb-4"
-                    >mdi-email</v-icon
-                  >
-                  <h3 class="contact-title mb-2">Email</h3>
-                  <p class="contact-info mb-4">{{ locationData.contact.email }}</p>
-                  <v-btn
-                    variant="outlined"
-                    color="primary"
-                    class="text-capitalize"
-                    :href="locationData.contact.emailUrl"
-                  >
-                    Email
-                  </v-btn>
-                </v-card>
-              </v-col>
-            </v-row>
+            <ContactCards :contact="locationData.contact" />
           </div>
         </div>
       </div>
@@ -140,6 +85,7 @@
 import { ref, computed, onMounted } from "vue";
 import { inject } from "vue";
 import PrivacyNotice from "@/components/PrivacyNotice.vue";
+import ContactCards from "@/components/ContactCards.vue";
 
 const alert = inject("alert");
 const isLoading = ref(false);
@@ -253,29 +199,6 @@ onMounted(() => {
   border: none;
 }
 
-/* tarjetas de contacto (whats, tel, email) */
-.contact-card {
-  border-radius: 12px;
-  height: 100%;
-  transition: transform 0.2s;
-}
-
-.contact-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-}
-
-.contact-title {
-  font-size: 1.25rem !important;
-  font-weight: 500;
-  color: #2c3e50;
-}
-
-.contact-info {
-  font-size: 1rem;
-  color: #5a6c7d;
-  font-weight: 500;
-}
 
 .privacy-btn {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);

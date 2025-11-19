@@ -10,7 +10,7 @@
               </v-col>
             </v-row>
 
-            <v-row justify="center" class="mb-16">
+            <v-row v-if="mockApiData.location?.contact" justify="center" class="mb-16">
               <v-col cols="12" sm="12" md="12" lg="10">
                 <div class="form-title text-h6 d-flex align-center mb-4">
                   <v-icon size="30" class="mr-2">mdi-email-fast</v-icon>
@@ -91,6 +91,8 @@
                 </div>
               </v-col>
             </v-row>
+
+            <ContactCards v-if="mockApiData.contact" :contact="mockApiData.contact" />
           </div>
         </div>
       </div>
@@ -101,6 +103,7 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import { inject } from "vue";
+import ContactCards from "@/components/ContactCards.vue";
 
 const alert = inject("alert");
 const isLoading = ref(false);
