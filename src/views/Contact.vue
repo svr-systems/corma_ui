@@ -1,16 +1,18 @@
 <template>
-  <v-card elevation="24" :disabled="isLoading">
+  <v-card elevation="24" :disabled="appDataStore.isLoading">
     <v-card-text class="pa-0">
       <div class="full-width-container">
-        <div class="content-sections">
+        <div v-if="appDataStore.visibilityData.showContact" class="content-sections">
           <div class="content-wrapper py-16">
             <v-row justify="center" class="mb-8">
               <v-col cols="12" class="text-center">
-                <h1 class="section-title-main mb-4">Contacto</h1>
+                <h1 class="section-title-main mb-4">{{ contactTitle }}</h1>
               </v-col>
             </v-row>
 
-            <v-row v-if="mockApiData.location?.contact" justify="center" class="mb-16">
+            <ContactCards v-if="appDataStore.contactData" :contact="appDataStore.contactData" />
+
+            <v-row v-if="appDataStore.contactType === 'form'" justify="center" class="mb-16">
               <v-col cols="12" sm="12" md="12" lg="10">
                 <div class="form-title text-h6 d-flex align-center mb-4">
                   <v-icon size="30" class="mr-2">mdi-email-fast</v-icon>
@@ -91,8 +93,6 @@
                 </div>
               </v-col>
             </v-row>
-
-            <ContactCards v-if="mockApiData.contact" :contact="mockApiData.contact" />
           </div>
         </div>
       </div>
@@ -116,17 +116,15 @@ const formData = ref({
 });
 
 const form = ref(null);
-import { mockApiData } from "@/services/mockData.js";
-const contactInfo = computed(() => mockApiData.contact?.info || {});
+import { useApiDataStore } from "@/stores/apiData.js";
 
-// api global con pinia:
-/*
-import { useAppDataStore } from "@/stores/appData.js";
-
-const appDataStore = useAppDataStore();
+const appDataStore = useApiDataStore();
 
 // datos desde store global
 const contactInfo = computed(() => appDataStore.contactData?.info || {});
+const contactTitle = computed(() =>
+  appDataStore.navbarData?.navLinks?.find(link => link.id === 'contact')?.name || 'Contacto'
+);
 
 // cargar datos si no están cargados
 if (!appDataStore.isLoaded && !appDataStore.isLoading) {
@@ -137,7 +135,6 @@ if (!appDataStore.isLoaded && !appDataStore.isLoading) {
 if (appDataStore.hasError && alert) {
   alert?.show("red-darken-1", `Error al cargar datos: ${appDataStore.error}`);
 }
-*/
 
 const submitForm = async () => {
   const { valid } = await form.value.validate();
@@ -191,6 +188,7 @@ onMounted(() => {
   margin-left: -50vw;
   margin-right: -50vw;
   background-color: white;
+  min-height: 100vh;
 }
 
 .content-wrapper {

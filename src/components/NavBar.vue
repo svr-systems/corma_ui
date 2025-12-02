@@ -3,6 +3,7 @@
     <v-app-bar density="compact" :elevation="2" :color="navbarColor">
       <v-toolbar-title>
         <v-img
+          v-if="appDataStore.isLoaded && logoUrl?.b64"
           :src="'data:' + logoUrl.ext + ';base64,' + logoUrl.b64"
           max-height="60"
           max-width="150"
@@ -43,36 +44,35 @@
 </template>
 
 <script setup>
-// importaciones de librerías
 import { ref, computed, inject } from "vue";
 import { useDisplay } from "vuetify";
 
 const display = useDisplay();
 const isMobile = computed(() => display.smAndDown.value);
 
-import { mockApiData } from "@/services/mockData.js";
-
-const logoUrl = computed(() => mockApiData.navbar.logoUrl);
-const socialLinks = computed(() => mockApiData.navbar.socialLinks);
-const navbarColor = computed(() => mockApiData.navbar.backgroudColor.hexa);
-const links = computed(() => mockApiData.navbar.navLinks);
-
-const activeSection = inject('activeSection') || ref('home');
-
-/*
 import { useApiDataStore } from "@/stores/apiData.js";
 
 const appDataStore = useApiDataStore();
 
 // datos desde store global
-const logoUrl = computed(() => appDataStore.navbarData?.logoUrl || "");
-const socialLinks = computed(() => appDataStore.getNavbarSocialLinks);
+const logoUrl = computed(() => appDataStore.navbarData?.logoUrl || {});
+const socialLinks = computed(() => appDataStore.navbarData?.socialLinks || {});
+const navbarColor = computed(() => appDataStore.navbarData?.backgroudColor?.hexa || "#757575");
+const links = computed(() => appDataStore.navbarData?.navLinks?.filter(link => {
+  if (link.id === 'home') return appDataStore.visibilityData?.showHero;
+  if (link.id === 'services') return appDataStore.visibilityData?.showServices;
+  if (link.id === 'clients') return appDataStore.visibilityData?.showClients;
+  if (link.id === 'location') return appDataStore.visibilityData?.showLocation;
+  if (link.id === 'contact') return appDataStore.visibilityData?.showContact;
+  return true;
+}) || []);
 
-//  cargar datos si no están cargados
+const activeSection = inject('activeSection') || ref('home');
+
+// cargar datos si no están cargados
 if (!appDataStore.isLoaded && !appDataStore.isLoading) {
   appDataStore.loadAllData();
 }
-*/
 
 const scrollToSection = (id) => {
   activeSection.value = id;

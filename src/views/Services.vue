@@ -1,8 +1,8 @@
 <template>
-  <v-card elevation="24" :disabled="isLoading">
+  <v-card elevation="24" :disabled="appDataStore.isLoading">
     <v-card-text class="pa-0">
       <div class="full-width-container">
-        <div class="content-sections">
+        <div v-if="appDataStore.visibilityData.showServices" class="content-sections">
           <div class="content-wrapper py-16">
             <v-row justify="center" class="mb-8">
               <v-col cols="12" class="text-center">
@@ -33,6 +33,7 @@
                     @click="(service.detailedDescription || service.descriptionDlg) ? openServiceDialog(service) : null"
                   >
                     <v-img
+                      v-if="appDataStore.isLoaded && service.imageUrl?.b64"
                       class="align-end text-white service-image"
                       height="200"
                       :src="'data:' + service.imageUrl.ext + ';base64,' + service.imageUrl.b64"
@@ -41,9 +42,9 @@
                       <v-card-title>{{ service.title }}</v-card-title>
                     </v-img>
 
-                    <v-card-text v-if="!service.detailedDescription && service.description" class="service-card-text">
-                      <div class="service-description">{{ service.description }}</div>
-                    </v-card-text>
+                    <v-card-text v-if="service.description" class="service-card-text">
+                       <div class="service-description">{{ service.description }}</div>
+                     </v-card-text>
                   </v-card>
                 </v-col>
               </v-row>
@@ -64,7 +65,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed } from "vue";
 import { inject } from "vue";
 import ServiceDetailDialog from "@/components/DlgDetail.vue";
 
@@ -73,25 +74,9 @@ const isLoading = ref(false);
 const dialogOpen = ref(false);
 const selectedService = ref(null);
 
-import { mockApiData } from "@/services/mockData.js";
+import { useApiDataStore } from "@/stores/apiData.js";
 
-const servicesData = computed(() => mockApiData.services);
-
-const openServiceDialog = (service) => {
-  selectedService.value = service;
-  dialogOpen.value = true;
-};
-
-
-// api global con pinia:
-// 1. comenta la línea: import { mockApiData } from "@/services/mockData.js";
-// 2. descomenta todo el bloque de abajo
-// 3. comenta/elimina la línea: const servicesData = computed(() => mockApiData.services);
-
-/*
-import { useAppDataStore } from "@/stores/appData.js";
-
-const appDataStore = useAppDataStore();
+const appDataStore = useApiDataStore();
 
 // datos desde store global
 const servicesData = computed(() => appDataStore.servicesData);
@@ -106,18 +91,10 @@ if (appDataStore.hasError && alert) {
   alert?.show("red-darken-1", `Error al cargar datos: ${appDataStore.error}`);
 }
 
-
-*/
-
-onMounted(() => {
-  isLoading.value = true;
-  try {
-    isLoading.value = false;
-  } catch (err) {
-    
-    isLoading.value = false;
-  }
-});
+const openServiceDialog = (service) => {
+  selectedService.value = service;
+  dialogOpen.value = true;
+};
 </script>
 
 <style scoped>
@@ -138,6 +115,7 @@ onMounted(() => {
   margin-left: -50vw;
   margin-right: -50vw;
   background-color: white;
+  min-height: 100vh;
 }
 
 .content-wrapper {

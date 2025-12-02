@@ -1,8 +1,8 @@
 <template>
-  <v-card elevation="24" :disabled="isLoading">
+  <v-card elevation="24" :disabled="appDataStore.isLoading">
     <v-card-text class="pa-0">
       <div class="full-width-container">
-        <div class="content-sections">
+        <div v-if="appDataStore.visibilityData.showLocation" class="content-sections">
           <div class="content-wrapper py-16">
             <v-row justify="center" class="mb-8">
               <v-col cols="12" class="text-center">
@@ -51,7 +51,7 @@
 
             <v-row justify="center">
               <v-col cols="12" class="text-center">
-                <v-dialog v-model="privacyDialog" max-width="800">
+                <v-dialog v-if="appDataStore.visibilityData.showPrivacyNotice" v-model="privacyDialog" max-width="800">
                   <template v-slot:activator="{ props: activatorProps }">
                     <v-btn
                       v-bind="activatorProps"
@@ -73,7 +73,6 @@
               </v-col>
             </v-row>
 
-            <ContactCards :contact="locationData.contact" />
           </div>
         </div>
       </div>
@@ -82,34 +81,20 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed } from "vue";
 import { inject } from "vue";
 import PrivacyNotice from "@/components/PrivacyNotice.vue";
-import ContactCards from "@/components/ContactCards.vue";
 
 const alert = inject("alert");
-const isLoading = ref(false);
 const privacyDialog = ref(false);
 
-import { mockApiData } from "@/services/mockData.js";
+import { useApiDataStore } from "@/stores/apiData.js";
 
-const locationData = computed(() => mockApiData.location);
-const privacyNoticeData = computed(() => mockApiData.privacyNotice);
-
-
-// modo alternativo: api global con pinia
-// para usar api global, sigue estos pasos:
-// 1. comenta la línea: import { mockApiData } from "@/services/mockData.js";
-// 2. descomenta todo el bloque de abajo
-// 3. comenta/elimina la línea: const locationData = computed(() => mockApiData.location);
-
-/*
-import { useAppDataStore } from "@/stores/appData.js";
-
-const appDataStore = useAppDataStore();
+const appDataStore = useApiDataStore();
 
 // datos desde store global
 const locationData = computed(() => appDataStore.locationData);
+const privacyNoticeData = computed(() => appDataStore.privacyNoticeData);
 
 // cargar datos si no están cargados
 if (!appDataStore.isLoaded && !appDataStore.isLoading) {
@@ -120,25 +105,27 @@ if (!appDataStore.isLoaded && !appDataStore.isLoading) {
 if (appDataStore.hasError && alert) {
   alert?.show("red-darken-1", `Error al cargar datos: ${appDataStore.error}`);
 }
-
-
-*/
-
-onMounted(() => {
-  isLoading.value = true;
-  try {
-    isLoading.value = false;
-  } catch (err) {
-    
-    isLoading.value = false;
-  }
-});
 </script>
 
 <style scoped>
+.full-width-container {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
 .content-sections {
-  width: 100%;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
   background-color: white;
+  min-height: 100vh;
 }
 
 .content-wrapper {

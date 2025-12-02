@@ -1,8 +1,8 @@
 <template>
-  <v-card elevation="24" :disabled="isLoading">
+  <v-card elevation="24" :disabled="appDataStore.isLoading">
     <v-card-text class="pa-0">
       <div class="full-width-container">
-        <div class="content-sections">
+        <div v-if="appDataStore.visibilityData.showClients" class="content-sections">
           <div class="content-wrapper py-16">
             <v-row justify="center" class="mb-8">
               <v-col cols="12" class="text-center">
@@ -21,11 +21,15 @@
                 <v-card class="client-logo-card" elevation="2">
                   <v-card-text class="text-center pa-4">
                     <v-img
+                      v-if="appDataStore.isLoaded && client.logoUrl?.b64"
                       :src="'data:' + client.logoUrl.ext + ';base64,' + client.logoUrl.b64"
                       max-height="100"
                       contain
                       :alt="client.name"
                     />
+                    <div v-else>
+                      {{ client.name }}
+                    </div>
                   </v-card-text>
                 </v-card>
               </v-col>
@@ -38,26 +42,14 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { computed } from "vue";
 import { inject } from "vue";
 
 const alert = inject("alert");
-const isLoading = ref(false);
 
-import { mockApiData } from "@/services/mockData.js";
+import { useApiDataStore } from "@/stores/apiData.js";
 
-const clientsData = computed(() => mockApiData.clients);
-
-
-// api global con pinia:
-// 1. comenta la línea: import { mockApiData } from "@/services/mockData.js";
-// 2. descomenta todo el bloque de abajo
-// 3. comenta/elimina la línea: const clientsData = computed(() => mockApiData.clients);
-
-/*
-import { useAppDataStore } from "@/stores/appData.js";
-
-const appDataStore = useAppDataStore();
+const appDataStore = useApiDataStore();
 
 // datos desde store global
 const clientsData = computed(() => appDataStore.clientsData);
@@ -67,23 +59,10 @@ if (!appDataStore.isLoaded && !appDataStore.isLoading) {
   appDataStore.loadAllData();
 }
 
-// mostrar error si hay problemas
+// si hay error
 if (appDataStore.hasError && alert) {
   alert?.show("red-darken-1", `Error al cargar datos: ${appDataStore.error}`);
 }
-
-
-*/
-
-onMounted(() => {
-  isLoading.value = true;
-  try {
-    isLoading.value = false;
-  } catch (err) {
-    
-    isLoading.value = false;
-  }
-});
 </script>
 
 <style scoped>
@@ -126,6 +105,7 @@ onMounted(() => {
   margin-left: -50vw;
   margin-right: -50vw;
   background-color: white;
+  min-height: 100vh;
 }
 
 .content-wrapper {

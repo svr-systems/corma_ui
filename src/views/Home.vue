@@ -1,8 +1,9 @@
 <template>
-  <v-card elevation="24" :disabled="isLoading">
+  <v-card elevation="24" :disabled="appDataStore.isLoading">
     <v-card-text class="pa-0">
       <div class="full-width-container">
         <v-sheet
+          v-if="appDataStore.visibilityData?.showHero"
           class="hero-section d-flex align-center"
           height="100vh"
           :style="getBackgroundStyle()"
@@ -13,6 +14,7 @@
               <v-col cols="12" md="6" class="text-left">
                 <div class="hero-content">
                   <v-img
+                    v-if="appDataStore.isLoaded && heroData?.logoUrl?.b64"
                     :src="'data:' + heroData.logoUrl.ext + ';base64,' + heroData.logoUrl.b64"
                     max-width="400"
                     contain
@@ -49,20 +51,23 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { computed } from "vue";
 import { inject } from "vue";
 
 const alert = inject("alert");
-const isLoading = ref(false);
-
-import { mockApiData } from "@/services/mockData.js";
-const heroData = computed(() => mockApiData.home.hero);
-const companyInfo = computed(() => mockApiData.home.companyInfo);
 
 const sections = computed(() => {
   if (!companyInfo.value) return [];
   return Object.keys(companyInfo.value)
-    .filter(key => companyInfo.value[key]?.title && companyInfo.value[key]?.description)
+    .filter(key => {
+      const section = companyInfo.value[key];
+      if (!section?.title || !section?.description) return false;
+      if (key === 'mission') return appDataStore.visibilityData?.showMission;
+      if (key === 'vision') return appDataStore.visibilityData?.showVision;
+      if (key === 'values') return appDataStore.visibilityData?.showValues;
+      if (key === 'history') return appDataStore.visibilityData?.showHistory;
+      return true;
+    })
     .map(key => ({
       key,
       title: companyInfo.value[key].title,
@@ -83,12 +88,6 @@ const getBackgroundStyle = () => {
 };
 
 
-// api global con pinia:
-// 1. comenta las líneas de mockapiData
-// 2. descomenta todo el bloque de abajo
-// 3. comenta/elimina las líneas: const herodata y const companyinfo
-
-/*
 import { useApiDataStore } from "@/stores/apiData.js";
 
 const appDataStore = useApiDataStore();
@@ -107,17 +106,7 @@ if (appDataStore.hasError && alert) {
   alert?.show("red-darken-1", `Error al cargar datos: ${appDataStore.error}`);
 }
 
-*/
-
-onMounted(() => {
-  isLoading.value = true;
-  try {
-    isLoading.value = false;
-  } catch (err) {
-    
-    isLoading.value = false;
-  }
-});
+// No se necesita onMounted ya que no hay lógica específica de carga
 </script>
 
 <style scoped>
@@ -173,6 +162,7 @@ onMounted(() => {
   margin-left: -50vw;
   margin-right: -50vw;
   background-color: white;
+  min-height: 100vh;
 }
 
 .content-wrapper {

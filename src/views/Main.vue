@@ -8,12 +8,14 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, inject, computed } from "vue";
-import { mockApiData } from "@/services/mockData.js";
+import { useApiDataStore } from "@/stores/apiData.js";
 import Home from './Home.vue'
 import Services from './Services.vue'
 import Clients from './Clients.vue'
 import Location from './Location.vue'
 import Contact from './Contact.vue'
+
+const appDataStore = useApiDataStore();
 
 const components = {
   home: Home,
@@ -23,7 +25,7 @@ const components = {
   contact: Contact
 };
 
-const availableSections = computed(() => mockApiData.navbar.navLinks.filter(link => link.id === 'contact' || mockApiData[link.id]));
+const availableSections = computed(() => appDataStore.navbarData?.navLinks?.filter(link => link.id === 'contact' || appDataStore[link.id + 'Data']) || []);
 
 const activeSection = inject('activeSection');
 const observer = ref(null);

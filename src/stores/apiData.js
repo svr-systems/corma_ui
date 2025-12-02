@@ -1,6 +1,5 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import { mockApiData } from '@/services/mockData.js'
 
 export const useApiDataStore = defineStore('apiData', () => {
   // estado global
@@ -8,15 +7,17 @@ export const useApiDataStore = defineStore('apiData', () => {
   const isLoaded = ref(false)
   const error = ref(null)
   
-  // datos de la aplicación
+  const visibilityData = ref(null)
   const navbarData = ref(null)
   const homeData = ref(null)
   const servicesData = ref(null)
   const clientsData = ref(null)
   const locationData = ref(null)
   const contactData = ref(null)
+  const privacyNoticeData = ref(null)
+  const contactType = ref(null)
 
-  // computeds para comodidad
+  // computed
   const isDataReady = computed(() => isLoaded.value && !isLoading.value)
   const hasError = computed(() => !!error.value)
   
@@ -31,23 +32,37 @@ export const useApiDataStore = defineStore('apiData', () => {
     error.value = null
 
     try {
-      // modo producción (api real)
-      // const response = await api.get('/company/all-data')
-      // const data = response.data
-      
-      // modo desarrollo (mock data)
-      // carga instantánea de datos
-      
-      // asignar datos del mock
-      navbarData.value = mockApiData.navbar
-      homeData.value = mockApiData.home
-      servicesData.value = mockApiData.services
-      clientsData.value = mockApiData.clients
-      locationData.value = mockApiData.location
-      contactData.value = {
-        // datos específicos de contacto si los necesitas
-        formFields: mockApiData.contact?.form || {},
-        info: mockApiData.contact?.info || {}
+      const apiMode = import.meta.env.VITE_API_MODE || 'mock'
+
+      if (apiMode === 'real') {
+        // modo producción (api real)
+        // const response = await api.get('/company/all-data')
+        // const data = response.data
+        // asignar data desde response
+        throw new Error('API real no implementada aún')
+      } else {
+        // modo desarrollo (mock data)
+        const mockType = import.meta.env.VITE_MOCK_TYPE || 'corma'
+        let apiData
+
+        if (mockType === 'nomad') {
+          apiData = (await import('@/services/nomad.js')).apiData
+        } else if (mockType === 'ashop') {
+          apiData = (await import('@/services/ashop.js')).apiData
+        } else {
+          apiData = (await import('@/services/corma.js')).apiData
+        }
+
+        // asignar datos del mock
+        visibilityData.value = apiData.visibility
+        navbarData.value = apiData.navbar
+        homeData.value = apiData.home
+        servicesData.value = apiData.services
+        clientsData.value = apiData.clients
+        locationData.value = apiData.location
+        contactData.value = apiData.contact || {}
+        privacyNoticeData.value = apiData.privacyNotice || {}
+        contactType.value = apiData.contactType || 'cards'
       }
 
       isLoaded.value = true
@@ -55,6 +70,7 @@ export const useApiDataStore = defineStore('apiData', () => {
       error.value = err.message || 'Error al cargar datos'
       
       // datos de fallback en caso de error
+      visibilityData.value = { showHero: true, showServices: true, showContact: true } // flags básicos
       navbarData.value = { logoUrl: '/src/assets/logo.svg', socialLinks: {} }
       homeData.value = { hero: {}, companyInfo: {} }
       servicesData.value = { header: {}, categories: [] }
@@ -66,13 +82,13 @@ export const useApiDataStore = defineStore('apiData', () => {
     }
   }
 
-  // función para recargar
+  // recargar
   const reloadData = async () => {
     isLoaded.value = false
     await loadAllData()
   }
 
-  // getters específicos
+  // getters
   const getNavbarSocialLinks = computed(() => navbarData.value?.socialLinks || {})
   const getHeroData = computed(() => homeData.value?.hero || {})
   const getCompanyInfo = computed(() => homeData.value?.companyInfo || {})
@@ -85,12 +101,15 @@ export const useApiDataStore = defineStore('apiData', () => {
     isLoading,
     isLoaded,
     error,
+    visibilityData,
     navbarData,
     homeData,
     servicesData,
     clientsData,
     locationData,
     contactData,
+    privacyNoticeData,
+    contactType,
     
     // computeds
     isDataReady,
