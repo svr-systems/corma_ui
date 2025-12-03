@@ -49,6 +49,12 @@ export const useApiDataStore = defineStore('apiData', () => {
           apiData = (await import('@/services/nomad.js')).apiData
         } else if (mockType === 'ashop') {
           apiData = (await import('@/services/ashop.js')).apiData
+        } else if (mockType === 'corma'){
+          apiData = (await import('@/services/corma.js')).apiData
+        } else if (mockType === 'medikaHome') {
+          apiData = (await import('@/services/medikaHome.js')).apiData
+        } else if (mockType === 'ascension') {
+          apiData = (await import('@/services/ascension.js')).apiData
         } else {
           apiData = (await import('@/services/corma.js')).apiData
         }

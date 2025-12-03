@@ -61,7 +61,7 @@ const sections = computed(() => {
   return Object.keys(companyInfo.value)
     .filter(key => {
       const section = companyInfo.value[key];
-      if (!section?.title || !section?.description) return false;
+      if (!section?.title || (!section?.description)) return false;
       if (key === 'mission') return appDataStore.visibilityData?.showMission;
       if (key === 'vision') return appDataStore.visibilityData?.showVision;
       if (key === 'values') return appDataStore.visibilityData?.showValues;
