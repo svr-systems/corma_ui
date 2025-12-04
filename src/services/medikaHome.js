@@ -2,10 +2,6 @@ export const apiData = {
   visibility: {
     showHero: true,
     showCompanyInfo: true,
-    showMission: false,
-    showVision: false,
-    showValues: false,
-    showHistory: false,
     showServices: true,
     showLocation: true,
     showClients: false,

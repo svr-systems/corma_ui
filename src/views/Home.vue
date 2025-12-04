@@ -57,16 +57,11 @@ import { inject } from "vue";
 const alert = inject("alert");
 
 const sections = computed(() => {
-  if (!companyInfo.value) return [];
+  if (!companyInfo.value || !appDataStore.visibilityData?.showCompanyInfo) return [];
   return Object.keys(companyInfo.value)
     .filter(key => {
       const section = companyInfo.value[key];
-      if (!section?.title || (!section?.description)) return false;
-      if (key === 'mission') return appDataStore.visibilityData?.showMission;
-      if (key === 'vision') return appDataStore.visibilityData?.showVision;
-      if (key === 'values') return appDataStore.visibilityData?.showValues;
-      if (key === 'history') return appDataStore.visibilityData?.showHistory;
-      return true;
+      return section?.title && section?.description;
     })
     .map(key => ({
       key,
@@ -96,17 +91,15 @@ const appDataStore = useApiDataStore();
 const heroData = computed(() => appDataStore.getHeroData);
 const companyInfo = computed(() => appDataStore.getCompanyInfo);
 
-// cargar datos si no están cargados
+// si los datos no están cargados
 if (!appDataStore.isLoaded && !appDataStore.isLoading) {
   appDataStore.loadAllData();
 }
 
-// mostrar error si hay problemas
+// mostrar error
 if (appDataStore.hasError && alert) {
   alert?.show("red-darken-1", `Error al cargar datos: ${appDataStore.error}`);
 }
-
-// No se necesita onMounted ya que no hay lógica específica de carga
 </script>
 
 <style scoped>

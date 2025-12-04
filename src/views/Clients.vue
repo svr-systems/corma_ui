@@ -59,7 +59,7 @@ if (!appDataStore.isLoaded && !appDataStore.isLoading) {
   appDataStore.loadAllData();
 }
 
-// si hay error
+// mostrar error
 if (appDataStore.hasError && alert) {
   alert?.show("red-darken-1", `Error al cargar datos: ${appDataStore.error}`);
 }
