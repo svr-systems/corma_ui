@@ -1,9 +1,379 @@
-/* Alineación vertical para íconos */
-.v-icon {
-  vertical-align: baseline !important;
-}
-
-/* Texto con saltos de línea respetados */
+/* Texto con saltos de línea */
 .text-description {
   white-space: pre-line;
+}
+
+/* Contenedor de ancho completo */
+.full-width-container {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+/* Secciones de contenido */
+.content-sections {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background-color: white;
+  min-height: 100vh;
+}
+
+/* Envoltorio de contenido */
+.content-wrapper {
+  width: 100%;
+  padding: 0 24px;
+}
+
+/* Título principal de sección */
+.section-title-main {
+  font-size: 5rem !important;
+  font-weight: 300 !important;
+  color: #2c3e50;
+  line-height: 1;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.section-title-main::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 2px;
+}
+
+/* Subtítulo de sección */
+.section-title {
+  font-size: 2.5rem !important;
+  font-weight: 300 !important;
+  color: #502c2c;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #667eea, #a24b4b);
+  border-radius: 2px;
+}
+
+/* Texto de sección */
+.section-text {
+  font-size: 1.1rem !important;
+  line-height: 1.7;
+  color: #5a6c7d;
+  margin: 0;
+  text-align: left !important;
+}
+
+/* Contenido de texto */
+.text-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Overlay del carrusel */
+.carousel-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* Contenido del carrusel */
+.carousel-content {
+  text-align: center;
+  color: white;
+  max-width: 800px;
+  padding: 0 24px;
+}
+
+/* Título del carrusel */
+.carousel-title {
+  font-size: 3rem;
+  font-weight: 300;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* Barra de navegación */
+.v-app-bar {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.separator {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.active-link {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff !important;
+}
+
+/* Tarjetas de contacto */
+.contact-card {
+  height: 100%;
+  transition: transform 0.2s;
+}
+
+.contact-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.contact-title {
+  font-size: 1.25rem !important;
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.contact-info {
+  font-size: 1rem;
+  color: #5a6c7d;
+  font-weight: 500;
+}
+
+/* Diálogo de detalle */
+.dialog-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.left-col {
+  padding: 0;
+  position: relative;
+}
+
+.image-container {
+  position: relative;
+  height: 500px;
+  width: 100%;
+}
+
+.service-image {
+  height: 100%;
+  width: 100%;
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 16px;
+}
+
+.image-title {
+  color: white;
+  font-size: 2rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.right-col {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.catalog-section {
+  margin-bottom: 16px;
+}
+
+.descriptions-section {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.descriptions-section p {
+  line-height: 1.6;
+}
+
+/* Tarjetas de clientes */
+.client-logo-card {
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Formulario de contacto */
+.form-title {
+  color: #333;
+}
+
+.form-card {
+  background-color: #d3d8dc !important;
+  padding: 16px;
+}
+
+.submit-button {
+  background-color: #548c45 !important;
+  letter-spacing: normal;
+  font-weight: 500 !important;
+}
+
+:deep(.v-text-field .v-field__input),
+:deep(.v-textarea .v-field__input) {
+  background-color: white !important;
+  border-radius: 8px !important;
+}
+
+/* Ubicación */
+.location-content {
+  max-width: 350px;
+  text-align: center;
+}
+
+.location-text {
+  font-size: 1.1rem !important;
+  line-height: 1.6;
+  color: #5a6c7d;
+}
+
+
+.map-preview {
+  width: 100%;
+  max-width: 500px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.map-iframe {
+  width: 100%;
+  height: 300px;
+  border: none;
+}
+
+
+/* Contenedor principal */
+.main-container {
+  min-height: 100vh;
+}
+
+/* Tarjetas de servicios */
+.service-card {
+  overflow: hidden;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.clickable-card {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.clickable-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.service-card-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.service-description {
+  min-height: 80px;
+  line-height: 1.4;
+}
+
+.service-image::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.service-image .v-card-title {
+  position: relative;
+  z-index: 2;
+}
+
+/* Media queries */
+@media (max-width: 960px) {
+  .section-title-main {
+    font-size: 3.5rem !important;
+  }
+  .section-title {
+    font-size: 2rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-title-main {
+    font-size: 2.5rem !important;
+  }
+  .section-title {
+    font-size: 1.8rem !important;
+  }
+  .content-wrapper {
+    padding: 0 16px;
+  }
+  .carousel-title {
+    font-size: 2rem;
+  }
+  .carousel-content {
+    padding: 0 16px;
+  }
+  .location-content {
+    max-width: unset;
+  }
+  .map-preview {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .section-title-main {
+    font-size: 2rem !important;
+  }
+  .section-title {
+    font-size: 1.5rem !important;
+  }
+  .client-logo-card {
+    height: 80px;
+  }
 }

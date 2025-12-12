@@ -19,7 +19,7 @@
                   Compártenos tu información:
                 </div>
 
-                <v-card class="form-card pa-8" elevation="2">
+                <v-card class="form-card pa-8 rounded" elevation="2">
                   <v-form ref="form" @submit.prevent="submitForm">
                     <v-row dense>
                       <v-col cols="12" md="4">
@@ -85,7 +85,7 @@
                     type="submit"
                     color="#548C45"
                     size="large"
-                    class="elevation-4 text-white text-h6 font-weight-regular submit-button"
+                    class="elevation-4 text-white text-h6 font-weight-regular submit-button rounded"
                     @click="submitForm"
                   >
                     Enviar
@@ -179,94 +179,3 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
-.content-sections {
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  background-color: white;
-  min-height: 100vh;
-}
-
-.content-wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-  min-height: 100vh;
-}
-
-/* título principal */
-.section-title-main {
-  font-size: 5rem !important;
-  font-weight: 300 !important;
-  color: #2c3e50;
-  line-height: 1;
-  margin-bottom: 2rem;
-  position: relative;
-}
-
-.section-title-main::after {
-  content: "";
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 3px;
-  background: linear-gradient(90deg, #667eea, #764ba2);
-  border-radius: 2px;
-}
-
-/* título del formulario */
-.form-title {
-  color: #333;
-}
-
-/* tarjeta que envuelve los campos de entrada */
-.form-card {
-  background-color: #d3d8dc !important;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  padding: 16px;
-}
-
-/* botón enviar */
-.submit-button {
-  background-color: #548c45 !important;
-  border-radius: 8px;
-  letter-spacing: normal;
-  font-weight: 500 !important;
-}
-
-/* campos de entrada */
-:deep(.v-text-field .v-field__input),
-:deep(.v-textarea .v-field__input) {
-  background-color: white !important;
-  border-radius: 8px !important;
-}
-
-/* adapta el tamaño de los títulos en pantallas pequeñas */
-@media (max-width: 960px) {
-  .section-title-main {
-    font-size: 3.5rem !important;
-  }
-}
-
-@media (max-width: 768px) {
-  .section-title-main {
-    font-size: 2.5rem !important;
-  }
-  .content-wrapper {
-    padding: 0 16px;
-  }
-}
-
-@media (max-width: 600px) {
-  .section-title-main {
-    font-size: 2rem !important;
-  }
-}
-</style>

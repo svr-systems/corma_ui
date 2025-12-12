@@ -76,9 +76,9 @@ export const useApiDataStore = defineStore('apiData', () => {
       error.value = err.message || 'Error al cargar datos'
       
       // datos de fallback en caso de error
-      visibilityData.value = { showHero: true, showServices: true, showContact: true } // flags básicos
+      visibilityData.value = { showCarousel: true, showAboutUs: true, showServices: true, showContact: true } // flags básicos
       navbarData.value = { logoUrl: '/src/assets/logo.svg', socialLinks: {} }
-      homeData.value = { hero: {}, companyInfo: {} }
+      homeData.value = { carousel: [], companyInfo: {} }
       servicesData.value = { header: {}, categories: [] }
       clientsData.value = { logos: [] }
       locationData.value = { address: {}, map: {}, contact: {} }
@@ -96,7 +96,7 @@ export const useApiDataStore = defineStore('apiData', () => {
 
   // getters
   const getNavbarSocialLinks = computed(() => navbarData.value?.socialLinks || {})
-  const getHeroData = computed(() => homeData.value?.hero || {})
+  const getCarouselData = computed(() => homeData.value?.carousel || [])
   const getCompanyInfo = computed(() => homeData.value?.companyInfo || {})
   const getServicesCategories = computed(() => servicesData.value?.categories || [])
   const getClientLogos = computed(() => clientsData.value?.logos || [])
@@ -121,7 +121,7 @@ export const useApiDataStore = defineStore('apiData', () => {
     isDataReady,
     hasError,
     getNavbarSocialLinks,
-    getHeroData,
+    getCarouselData,
     getCompanyInfo,
     getServicesCategories,
     getClientLogos,

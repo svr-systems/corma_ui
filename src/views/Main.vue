@@ -10,6 +10,7 @@
 import { ref, onMounted, onUnmounted, inject, computed } from "vue";
 import { useApiDataStore } from "@/stores/apiData.js";
 import Home from './Home.vue'
+import AboutUs from './AboutUs.vue'
 import Services from './Services.vue'
 import Clients from './Clients.vue'
 import Location from './Location.vue'
@@ -19,13 +20,22 @@ const appDataStore = useApiDataStore();
 
 const components = {
   home: Home,
+  aboutus: AboutUs,
   services: Services,
   clients: Clients,
   location: Location,
   contact: Contact
 };
 
-const availableSections = computed(() => appDataStore.navbarData?.navLinks?.filter(link => link.id === 'contact' || appDataStore[link.id + 'Data']) || []);
+const availableSections = computed(() => appDataStore.navbarData?.navLinks?.filter(link => {
+  if (link.id === 'home') return appDataStore.visibilityData?.showCarousel;
+  if (link.id === 'aboutus') return appDataStore.visibilityData?.showAboutUs;
+  if (link.id === 'services') return appDataStore.visibilityData?.showServices;
+  if (link.id === 'clients') return appDataStore.visibilityData?.showClients;
+  if (link.id === 'location') return appDataStore.visibilityData?.showLocation;
+  if (link.id === 'contact') return appDataStore.visibilityData?.showContact;
+  return false;
+}) || []);
 
 const activeSection = inject('activeSection');
 const observer = ref(null);
@@ -66,9 +76,4 @@ onUnmounted(() => {
   }
 });
 </script>
-<style scoped>
-.main-container {
-  min-height: 100vh;
-}
-</style>
 

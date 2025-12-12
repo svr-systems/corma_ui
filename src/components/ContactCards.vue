@@ -38,7 +38,7 @@
     </v-col>
 
     <v-col cols="12" sm="4">
-      <v-card class="contact-card text-center pa-6" elevation="2">
+      <v-card class="contact-card text-center pa-6 rounded-lg" elevation="2">
         <v-icon size="48" color="primary" class="mb-4"
           >mdi-email</v-icon
         >
@@ -65,28 +65,3 @@ defineProps({
   }
 });
 </script>
-
-<style scoped>
-.contact-card {
-  border-radius: 12px;
-  height: 100%;
-  transition: transform 0.2s;
-}
-
-.contact-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-}
-
-.contact-title {
-  font-size: 1.25rem !important;
-  font-weight: 500;
-  color: #2c3e50;
-}
-
-.contact-info {
-  font-size: 1rem;
-  color: #5a6c7d;
-  font-weight: 500;
-}
-</style>

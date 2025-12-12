@@ -59,7 +59,8 @@ const logoUrl = computed(() => appDataStore.navbarData?.logoUrl || {});
 const socialLinks = computed(() => appDataStore.navbarData?.socialLinks || {});
 const navbarColor = computed(() => appDataStore.navbarData?.backgroudColor?.hexa || "#757575");
 const links = computed(() => appDataStore.navbarData?.navLinks?.filter(link => {
-  if (link.id === 'home') return appDataStore.visibilityData?.showHero;
+  if (link.id === 'home') return appDataStore.visibilityData?.showCarousel;
+  if (link.id === 'aboutus') return appDataStore.visibilityData?.showAboutUs;
   if (link.id === 'services') return appDataStore.visibilityData?.showServices;
   if (link.id === 'clients') return appDataStore.visibilityData?.showClients;
   if (link.id === 'location') return appDataStore.visibilityData?.showLocation;
@@ -82,23 +83,3 @@ const scrollToSection = (id) => {
   }
 };
 </script>
-
-<style scoped>
-.v-app-bar {
-  position: fixed !important;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-}
-
-.separator {
-  color: #666;
-  font-size: 0.9rem;
-}
-
-.active-link {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #fff !important;
-}
-</style>

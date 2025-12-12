@@ -26,6 +26,7 @@
                     :href="locationData.map.directionsUrl"
                     target="_blank"
                     class="location-btn"
+                    elevation="1"
                   >
                     Ver en Maps
                   </v-btn>
@@ -33,7 +34,7 @@
               </v-col>
 
               <v-col cols="12" md="6" class="d-flex justify-center">
-                <div class="map-preview">
+                <div class="map-preview rounded">
                   <iframe
                     :src="locationData.map.embedUrl"
                     width="100%"
@@ -58,6 +59,7 @@
                       color="grey-darken-1"
                       variant="flat"
                       class="rounded-pill px-8 privacy-btn"
+                      elevation="1"
                     >
                       Aviso de Privacidad
                     </v-btn>
@@ -107,109 +109,3 @@ if (appDataStore.hasError && alert) {
 }
 </script>
 
-<style scoped>
-.full-width-container {
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-}
-
-.content-sections {
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  background-color: white;
-  min-height: 100vh;
-}
-
-.content-wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
-/* título principal */
-.section-title-main {
-  font-size: 5rem !important;
-  font-weight: 300 !important;
-  color: #2c3e50;
-  line-height: 1;
-  margin-bottom: 2rem;
-  position: relative;
-}
-
-.section-title-main::after {
-  content: "";
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 3px;
-  background: #007bff;
-  border-radius: 2px;
-}
-
-/* sección de ubicación */
-.location-content {
-  max-width: 350px;
-  text-align: center;
-}
-
-.location-text {
-  font-size: 1.1rem !important;
-  line-height: 1.6;
-  color: #5a6c7d;
-}
-
-.location-btn {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.map-preview {
-  width: 100%;
-  max-width: 500px;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.map-iframe {
-  width: 100%;
-  height: 300px;
-  border: none;
-}
-
-
-.privacy-btn {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* adaptar el tamaño de los títulos en pantallas pequeñas */
-@media (max-width: 960px) {
-  .section-title-main {
-    font-size: 3.5rem !important;
-  }
-}
-
-@media (max-width: 768px) {
-  .section-title-main {
-    font-size: 2.5rem !important;
-  }
-  .content-wrapper {
-    padding: 0 16px;
-  }
-  .location-content {
-    max-width: unset;
-  }
-  .map-preview {
-    max-width: 100%;
-  }
-}
-</style>

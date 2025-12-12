@@ -18,7 +18,7 @@
                 sm="3"
                 class="mb-6"
               >
-                <v-card class="client-logo-card" elevation="2">
+                <v-card class="client-logo-card rounded" elevation="2">
                   <v-card-text class="text-center pa-4">
                     <v-img
                       v-if="appDataStore.isLoaded && client.logoUrl?.b64"
@@ -65,88 +65,3 @@ if (appDataStore.hasError && alert) {
 }
 </script>
 
-<style scoped>
-/* título principal */
-.section-title-main {
-  font-size: 5rem !important;
-  font-weight: 300 !important;
-  color: #2c3e50;
-  line-height: 1;
-  margin-bottom: 2rem;
-  position: relative;
-}
-
-.section-title-main::after {
-  content: "";
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 3px;
-  background: linear-gradient(90deg, #667eea, #764ba2);
-  border-radius: 2px;
-}
-
-.full-width-container {
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-}
-
-.content-sections {
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  background-color: white;
-  min-height: 100vh;
-}
-
-.content-wrapper {
-  width: 100%;
-  padding: 0 24px;
-}
-
-/* estilo tarjetas */
-.client-logo-card {
-  border-radius: 8px;
-  height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* adaptar el diseño en pantallas pequeñas */
-@media (max-width: 768px) {
-  .section-title-main {
-    font-size: 2.5rem !important;
-  }
-  .content-wrapper {
-    padding: 0 16px;
-  }
-  .client-logo-card {
-    height: 100px;
-  }
-  .client-logo {
-    max-height: 60px !important;
-  }
-}
-
-@media (max-width: 600px) {
-  .section-title-main {
-    font-size: 2rem !important;
-  }
-  .client-logo-card {
-    height: 80px;
-  }
-  .client-logo {
-    max-height: 50px !important;
-  }
-}
-</style>
