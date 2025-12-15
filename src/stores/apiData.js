@@ -11,10 +11,14 @@ export const useApiDataStore = defineStore('apiData', () => {
   const navbarData = ref(null)
   const homeData = ref(null)
   const servicesData = ref(null)
+  const productsData = ref(null)
   const clientsData = ref(null)
   const locationData = ref(null)
   const contactData = ref(null)
   const privacyNoticeData = ref(null)
+  const galleryData = ref(null)
+  const videosData = ref(null)
+  const documentsData = ref(null)
   const contactType = ref(null)
 
   // computed
@@ -64,10 +68,14 @@ export const useApiDataStore = defineStore('apiData', () => {
         navbarData.value = apiData.navbar
         homeData.value = apiData.home
         servicesData.value = apiData.services
+        productsData.value = apiData.products
         clientsData.value = apiData.clients
         locationData.value = apiData.location
         contactData.value = apiData.contact || {}
         privacyNoticeData.value = apiData.privacyNotice || {}
+        galleryData.value = apiData.gallery || {}
+        videosData.value = apiData.videos || {}
+        documentsData.value = apiData.documents || {}
         contactType.value = apiData.contactType || 'cards'
       }
 
@@ -76,13 +84,17 @@ export const useApiDataStore = defineStore('apiData', () => {
       error.value = err.message || 'Error al cargar datos'
       
       // datos de fallback en caso de error
-      visibilityData.value = { showCarousel: true, showAboutUs: true, showServices: true, showContact: true } // flags básicos
+      visibilityData.value = { showCarousel: true, showAboutUs: true, showServices: true, showProducts: true, showContact: true } // flags básicos
       navbarData.value = { logoUrl: '/src/assets/logo.svg', socialLinks: {} }
       homeData.value = { carousel: [], companyInfo: {} }
       servicesData.value = { header: {}, categories: [] }
+      productsData.value = { header: {}, categories: [] }
       clientsData.value = { logos: [] }
       locationData.value = { address: {}, map: {}, contact: {} }
       contactData.value = {}
+      galleryData.value = { header: {}, categories: [] }
+      videosData.value = { header: {}, videos: [] }
+      documentsData.value = { header: {}, documents: [] }
     } finally {
       isLoading.value = false
     }
@@ -99,6 +111,7 @@ export const useApiDataStore = defineStore('apiData', () => {
   const getCarouselData = computed(() => homeData.value?.carousel || [])
   const getCompanyInfo = computed(() => homeData.value?.companyInfo || {})
   const getServicesCategories = computed(() => servicesData.value?.categories || [])
+  const getProductsCategories = computed(() => productsData.value?.categories || [])
   const getClientLogos = computed(() => clientsData.value?.logos || [])
   const getLocationInfo = computed(() => locationData.value || {})
 
@@ -111,10 +124,14 @@ export const useApiDataStore = defineStore('apiData', () => {
     navbarData,
     homeData,
     servicesData,
+    productsData,
     clientsData,
     locationData,
     contactData,
     privacyNoticeData,
+    galleryData,
+    videosData,
+    documentsData,
     contactType,
     
     // computeds
@@ -124,6 +141,7 @@ export const useApiDataStore = defineStore('apiData', () => {
     getCarouselData,
     getCompanyInfo,
     getServicesCategories,
+    getProductsCategories,
     getClientLogos,
     getLocationInfo,
     

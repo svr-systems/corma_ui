@@ -3,7 +3,6 @@
     <v-carousel
       v-model="currentSlide"
       height="100vh"
-      hide-delimiters
       show-arrows="hover"
       cycle
       interval="5000"

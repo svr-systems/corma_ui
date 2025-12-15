@@ -61,10 +61,14 @@ const navbarColor = computed(() => appDataStore.navbarData?.backgroudColor?.hexa
 const links = computed(() => appDataStore.navbarData?.navLinks?.filter(link => {
   if (link.id === 'home') return appDataStore.visibilityData?.showCarousel;
   if (link.id === 'aboutus') return appDataStore.visibilityData?.showAboutUs;
+  if (link.id === 'products') return appDataStore.visibilityData?.showProducts;
   if (link.id === 'services') return appDataStore.visibilityData?.showServices;
   if (link.id === 'clients') return appDataStore.visibilityData?.showClients;
   if (link.id === 'location') return appDataStore.visibilityData?.showLocation;
   if (link.id === 'contact') return appDataStore.visibilityData?.showContact;
+  if (link.id === 'galery') return appDataStore.visibilityData?.showGallery;
+  if (link.id === 'videos') return appDataStore.visibilityData?.showVideos;
+  if (link.id === 'documents') return appDataStore.visibilityData?.showDocuments;
   return true;
 }) || []);
 

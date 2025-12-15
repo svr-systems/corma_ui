@@ -48,8 +48,8 @@
           variant="outlined"
           color="primary"
           class="text-capitalize"
-          :href="contact.emailUrl"
-        >
+          @click="handleEmailClick"
+          >
           Email
         </v-btn>
       </v-card>
@@ -58,10 +58,16 @@
 </template>
 
 <script setup>
-defineProps({
+const props = defineProps({
   contact: {
     type: Object,
     required: true
   }
 });
+
+const emit = defineEmits(['email-click']);
+
+const handleEmailClick = () => {
+  emit('email-click');
+};
 </script>
