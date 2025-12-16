@@ -22,16 +22,15 @@ export const apiData = {
   visibility: {
     showCarousel: true,
     showAboutUs: true,
-    showCompanyInfo: true,
+    showProducts: true,
     showServices: true,
     showGallery: true,
     showVideos: true,
-    showDocuments: true,
-    showProducts: true,
-    showLocation: false,
     showClients: false,
-    showContact: true,
+    showDocuments: true,
+    showLocation: false,
     showPrivacyNotice: true,
+    showContact: true,
   },
   navbar: {
     backgroudColor: {
@@ -63,6 +62,7 @@ export const apiData = {
     elements: 5,
     carousel: [
       {
+        id: "1",
         image: {
           ext: "image/jpeg",
           b64: "",
@@ -100,10 +100,11 @@ export const apiData = {
     },
     categories: [
       {
-        id: "categoria1",
+        id: 1,
         title: "Categoría 1",
         products: [
           {
+            id: 1,
             title: "Producto 1",
             description: "Descripción del producto 1.",
             imageUrl: {
@@ -126,6 +127,7 @@ export const apiData = {
         title: "Impresiones",
         services: [
           {
+            id: 1,
             title: "Lona",
             detaileddescriptionDlg: "Información/Detalle",
             descriptionDlg:
@@ -137,6 +139,7 @@ export const apiData = {
             },
           },
           {
+            id: 2,
             title: "DTF Textil",
             detaileddescriptionDlg: "Información/Detalle",
             descriptionDlg:
@@ -148,6 +151,7 @@ export const apiData = {
             },
           },
           {
+            id: 3,
             title: "DTF UV",
             detaileddescriptionDlg: "Información/Detalle",
             descriptionDlg:
@@ -422,6 +426,7 @@ export const apiData = {
         title: "Impresiones",
         images: [
           {
+            id: 1,
             name: "Lona impresa",
             description: "Ejemplo de impresión en lona.",
             imageUrl: {
@@ -430,6 +435,7 @@ export const apiData = {
             },
           },
           {
+            id: 2,
             name: "DTF Textil",
             description: "Impresión DTF en tela.",
             imageUrl: {
@@ -444,6 +450,7 @@ export const apiData = {
         title: "Sublimación",
         images: [
           {
+            id: 3,
             name: "Taza sublimada",
             description: "Taza con diseño sublimado.",
             imageUrl: {
@@ -452,6 +459,7 @@ export const apiData = {
             },
           },
           {
+            id: 4,
             name: "Playera sublimada",
             description: "Playera con impresión sublimada.",
             imageUrl: {
@@ -466,6 +474,7 @@ export const apiData = {
         title: "Personalización",
         images: [
           {
+            id: 5,
             name: "Vasos personalizados",
             description: "Vasos con diseños personalizados.",
             imageUrl: {
@@ -484,13 +493,13 @@ export const apiData = {
     },
     videos: [
       {
-        id: "video1",
+        id: 1,
         url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
         addedAt: "2024-12-15T10:00:00Z",
         updatedAt: "2024-12-15T10:00:00Z",
       },
       {
-        id: "video2",
+        id: 2,
         url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
         addedAt: "2024-12-14T15:30:00Z",
         updatedAt: "2024-12-14T15:30:00Z",
@@ -504,7 +513,7 @@ export const apiData = {
     },
     documents: [
       {
-        id: "1",
+        id: 1,
         title: "Catálogo de Productos",
         statement_b64: {
           cnt: "",
@@ -513,7 +522,7 @@ export const apiData = {
         },
       },
       {
-        id: "2",
+        id: 2,
         title: "Guía de Instalación",
         statement_b64: {
           cnt: "",
@@ -527,7 +536,6 @@ export const apiData = {
     descriptionDlg:
       "Ashop valora y respeta la privacidad de nuestros usuarios.Este aviso de privacidad describe cómo recopilamos, utilizamos y protegemos la información personal que nos proporcionas a través de nuestro sitio web.\n\nRecopilamos datos como tu nombre, correo electrónico y teléfono cuando nos contactas a través de los formularios o te suscribes a nuestro boletín.\n\nUsamos tu información solo para responder a tus consultas, ofrecerte nuestros servicios y, si lo autorizas, para enviarte información relevante sobre nuestras consultorías.\n\nTus datos personales no serán transferidos a terceros sin tu consentimiento, salvo en los casos que la ley lo permita o requiera.\n\nTienes el derecho a acceder, corregir o eliminar tu información en cualquier momento. Solo tienes que escribirnos a: r.cortes@cormaconsulting.com\n\nEste aviso de privacidad puede sufrir modificaciones o actualizaciones. Te notificaremos de cualquier cambio a través de nuestra página web.Te invitamos a revisar este aviso periódicamente.",
   },
-  contactType: "form",
   contact: {
     elements: 1,
     phone: "4611400001",

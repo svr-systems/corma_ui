@@ -17,16 +17,15 @@ export const apiData = {
   visibility: {
     showCarousel: true,
     showAboutUs: true,
-    showCompanyInfo: false,
+    showProducts: true,
     showServices: true,
     showGallery: false,
     showVideos: false,
-    showDocuments: false,
-    showProducts: true,
-    showLocation: false,
     showClients: false,
-    showContact: true,
+    showDocuments: false,
+    showLocation: false,
     showPrivacyNotice: false,
+    showContact: true,
   },
   navbar: {
     backgroudColor: {
@@ -54,6 +53,7 @@ export const apiData = {
     elements: 1,
     carousel: [
       {
+        id: 1,
         image: {
           ext: "image/jpeg",
           b64: "",
@@ -68,10 +68,11 @@ export const apiData = {
     },
     categories: [
       {
-        id: "categoria1",
+        id: 1,
         title: "Categoría 1",
         products: [
           {
+            id: 1,
             title: "Producto 1",
             description: "Descripción del producto 1.",
             imageUrl: {
@@ -479,7 +480,6 @@ export const apiData = {
       },
     ],
   },
-  contactType: "cards",
   gallery: {
     elements: 0,
     header: {},

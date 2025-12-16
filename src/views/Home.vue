@@ -1,5 +1,5 @@
 <template>
-  <div v-if="carouselData.length > 0" class="full-width-container">
+  <div v-if="appDataStore.visibilityData?.showCarousel && carouselData.length > 0" class="full-width-container">
     <v-carousel
       v-model="currentSlide"
       height="100vh"
@@ -10,9 +10,8 @@
       <v-carousel-item
         v-for="(slide, index) in carouselData"
         :key="index"
-        :style="getSlideStyle(slide.image)"
       >
-        <div class="carousel-overlay">
+        <div class="carousel-overlay" :style="getSlideStyle(slide.image)">
           <div class="carousel-content">
             <h1 class="carousel-title">{{ slide.description }}</h1>
           </div>
@@ -39,14 +38,11 @@ const currentSlide = ref(0);
 const getSlideStyle = (image) => {
   if (image?.b64) {
     return {
-      backgroundImage: `url(data:${image.ext};base64,${image.b64})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat'
+      background: `url(data:${image.ext};base64,${image.b64}) center center / cover no-repeat, rgba(0, 0, 0, 0.5)`
     };
   }
   return {
-    backgroundImage: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+    background: `linear-gradient(135deg, #667eea 0%, #764ba2 100%), rgba(0, 0, 0, 0.5)`
   };
 };
 

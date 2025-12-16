@@ -19,7 +19,6 @@ export const useApiDataStore = defineStore('apiData', () => {
   const galleryData = ref(null)
   const videosData = ref(null)
   const documentsData = ref(null)
-  const contactType = ref(null)
 
   // computed
   const isDataReady = computed(() => isLoaded.value && !isLoading.value)
@@ -76,7 +75,6 @@ export const useApiDataStore = defineStore('apiData', () => {
         galleryData.value = apiData.gallery || {}
         videosData.value = apiData.videos || {}
         documentsData.value = apiData.documents || {}
-        contactType.value = apiData.contactType || 'cards'
       }
 
       isLoaded.value = true
@@ -132,7 +130,6 @@ export const useApiDataStore = defineStore('apiData', () => {
     galleryData,
     videosData,
     documentsData,
-    contactType,
     
     // computeds
     isDataReady,

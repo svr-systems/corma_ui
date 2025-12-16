@@ -34,7 +34,7 @@ import { inject } from "vue";
 const alert = inject("alert");
 
 const sections = computed(() => {
-  if (!companyInfo.value || !appDataStore.visibilityData?.showCompanyInfo) return [];
+  if (!companyInfo.value) return [];
   return Object.keys(companyInfo.value)
     .filter(key => {
       const section = companyInfo.value[key];

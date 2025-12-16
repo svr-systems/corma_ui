@@ -17,16 +17,15 @@ export const apiData = {
   visibility: {
     showCarousel: true,
     showAboutUs: true,
-    showCompanyInfo: true,
+    showProducts: true,
     showServices: true,
     showGallery: false,
     showVideos: false,
-    showDocuments: false,
-    showProducts: true,
-    showLocation: true,
     showClients: false,
-    showContact: true,
+    showDocuments: false,
+    showLocation: true,
     showPrivacyNotice: true,
+    showContact: true,
   },
   navbar: {
     backgroudColor: {
@@ -56,6 +55,7 @@ export const apiData = {
     elements: 2,
     carousel: [
       {
+        id: 1,
         image: {
           ext: "image/jpeg",
           b64: "",
@@ -77,10 +77,11 @@ export const apiData = {
     },
     categories: [
       {
-        id: "categoria1",
+        id: 1,
         title: "Categoría 1",
         products: [
           {
+            id: 1,
             title: "Producto 1",
             description: "Descripción del producto 1.",
             imageUrl: {
@@ -99,10 +100,11 @@ export const apiData = {
     },
     categories: [
       {
-        id: "consultoria",
+        id: 1,
         title: "Consultoría",
         services: [
           {
+            id: 1,
             title: "Consulta",
             description:
               "Nuestra consulta médica ofrece una atención personalizada para evaluar tu estado de salud.",
@@ -115,7 +117,6 @@ export const apiData = {
       },
     ],
   },
-  contactType: "card",
   gallery: {
     elements: 0,
     header: {},
@@ -131,14 +132,6 @@ export const apiData = {
     header: {},
     documents: [],
   },
-  contact: {
-    elements: 1,
-    phone: "461-0000-999",
-    whatsapp: "461-0000-999",
-    email: "r.cortes@medikahome.com",
-    whatsappUrl: "https://wa.me/4610000999",
-    emailUrl: "mailto:r.cortes@medikahome.com",
-  },
   location: {
     elements: 1,
     address: {
@@ -152,9 +145,16 @@ export const apiData = {
         "https://www.google.com/maps/place/Misi%C3%B3n+de+San+Pablo+169,+La+Mision,+38015+Celaya,+Gto./@20.5469532,-100.836408,17z/data=!3m1!4b1!4m6!3m5!1s0x842cbadb01e0fa65:0x7594ef63d918a5d8!8m2!3d20.5469532!4d-100.836408!16s%2Fg%2F11fnrrsv14?entry=ttu&g_ep=EgoyMDI1MTEwNC4xIKXMDSoASAFQAw%3D%3D",
     },
   },
-
   privacyNotice: {
     description:
       "Medika Home Bajio valora y respeta la privacidad de nuestros usuarios. Este aviso de privacidad describe cómo recopilamos, utilizamos y protegemos la información personal que nos proporcionas a través de nuestro sitio web.\n\nRecopilamos datos como tu nombre, correo electrónico y teléfono cuando nos contactas a través de los formularios o te suscribes a nuestro boletín.\n\nUsamos tu información solo para responder a tus consultas, ofrecerte nuestros servicios y, si lo autorizas, para enviarte información relevante sobre nuestras consultorías.\n\nTus datos personales no serán transferidos a terceros sin tu consentimiento, salvo en los casos que la ley lo permita o requiera.\n\nTienes el derecho a acceder, corregir o eliminar tu información en cualquier momento. Solo tienes que escribirnos a: r.cortes@cormaconsulting.com\n\nEste aviso de privacidad puede sufrir modificaciones o actualizaciones. Te notificaremos de cualquier cambio a través de nuestra página web.Te invitamos a revisar este aviso periódicamente.",
+  },
+  contact: {
+    elements: 1,
+    phone: "461-0000-999",
+    whatsapp: "461-0000-999",
+    email: "r.cortes@medikahome.com",
+    whatsappUrl: "https://wa.me/4610000999",
+    emailUrl: "mailto:r.cortes@medikahome.com",
   },
 };

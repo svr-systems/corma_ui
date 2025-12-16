@@ -11,51 +11,29 @@
             </v-row>
 
             <v-row>
-              <template v-for="(category, index) in galleryData.categories" :key="index">
-                <v-col :cols="getCategoryCols(index)">
-                  <v-card
-                    class="gallery-category-card"
-                    elevation="4"
-                    @click="openCategoryDialog(category)"
-                  >
-                    <v-img
-                      v-if="category.images && category.images.length > 0"
-                      :src="'data:' + category.images[0].imageUrl.ext + ';base64,' + category.images[0].imageUrl.b64"
-                      height="200"
-                      cover
-                      class="gallery-image"
-                    />
-                    <v-card-title class="gallery-title">{{ category.title }}</v-card-title>
-                    <v-card-text class="gallery-text">
-                      {{ category.images ? category.images.length : 0 }} imágenes
-                    </v-card-text>
-                  </v-card>
-                </v-col>
-
-                <v-col v-if="hasChildren(index)" class="d-flex flex-column" :cols="getChildrenCols(index)">
-                  <v-row>
-                    <v-col v-for="(childCategory, childIdx) in getChildrenCategories(index)" :key="childIdx" :cols="getChildCols(index, childIdx)">
-                      <v-card
-                        class="gallery-category-card"
-                        elevation="4"
-                        @click="openCategoryDialog(childCategory)"
-                      >
-                        <v-img
-                          v-if="childCategory.images && childCategory.images.length > 0"
-                          :src="'data:' + childCategory.images[0].imageUrl.ext + ';base64,' + childCategory.images[0].imageUrl.b64"
-                          height="200"
-                          cover
-                          class="gallery-image"
-                        />
-                        <v-card-title class="gallery-title">{{ childCategory.title }}</v-card-title>
-                        <v-card-text class="gallery-text">
-                          {{ childCategory.images ? childCategory.images.length : 0 }} imágenes
-                        </v-card-text>
-                      </v-card>
-                    </v-col>
-                  </v-row>
-                </v-col>
-              </template>
+              <v-col
+                v-for="(category, index) in galleryData.categories"
+                :key="index"
+                :cols="cardCols[index]"
+              >
+                <v-card
+                  class="gallery-category-card"
+                  elevation="4"
+                  @click="openCategoryDialog(category)"
+                >
+                  <v-img
+                    v-if="category.images && category.images.length > 0"
+                    :src="'data:' + category.images[0].imageUrl.ext + ';base64,' + category.images[0].imageUrl.b64"
+                    height="200"
+                    cover
+                    class="gallery-image"
+                  />
+                  <v-card-title class="gallery-title">{{ category.title }}</v-card-title>
+                  <v-card-text class="gallery-text">
+                    {{ category.images ? category.images.length : 0 }} imágenes
+                  </v-card-text>
+                </v-card>
+              </v-col>
             </v-row>
           </div>
         </div>
@@ -63,7 +41,6 @@
     </v-card-text>
   </v-card>
 
-  <!-- Dialog para mostrar imágenes de la categoría -->
   <v-dialog v-model="dialogOpen" max-width="1200">
     <v-card>
       <v-card-title>
@@ -86,7 +63,6 @@
             :key="imgIdx"
             cols="12"
             md="6"
-            lg="4"
             class="mb-4"
           >
             <v-card elevation="2" class="image-card" @click="openImageDialog(image)">
@@ -148,8 +124,20 @@ import { useApiDataStore } from "@/stores/apiData.js";
 
 const appDataStore = useApiDataStore();
 
-// datos desde store global
 const galleryData = computed(() => appDataStore.galleryData);
+
+// anchos variables para asimetría, alternando patrones por fila
+const cardCols = computed(() => {
+  const numCategories = galleryData.value.categories.length;
+  const cols = [];
+  for (let i = 0; i < numCategories; i++) {
+    const row = Math.floor(i / 3);
+    const pos = i % 3;
+    const pattern = row % 2 === 0 ? [5, 4, 3] : [6, 2, 4];
+    cols.push(pattern[pos]);
+  }
+  return cols;
+});
 
 // cargar datos si no están cargados
 if (!appDataStore.isLoaded && !appDataStore.isLoading) {
@@ -171,49 +159,6 @@ const openImageDialog = (image) => {
   imageDialogOpen.value = true;
 };
 
-// Layout similar to Vuetify example
-const categoryLayout = [
-  { cols: 4 },
-  {
-    cols: 8,
-    children: [{ cols: 12 }, { cols: 12 }],
-  },
-  { cols: 6 },
-  { cols: 3 },
-  { cols: 9 },
-  { cols: 4 },
-  { cols: 8 },
-];
-
-const getCategoryCols = (index) => {
-  const layout = categoryLayout[index % categoryLayout.length];
-  return layout.cols;
-};
-
-const hasChildren = (index) => {
-  const layout = categoryLayout[index % categoryLayout.length];
-  return !!layout.children;
-};
-
-const getChildrenCols = (index) => {
-  const layout = categoryLayout[index % categoryLayout.length];
-  return layout.children ? 6 : 0; // Assuming 6 for children container
-};
-
-const getChildrenCategories = (index) => {
-  const categories = galleryData.value.categories;
-  const startIdx = index + 1;
-  const layout = categoryLayout[index % categoryLayout.length];
-  if (layout.children) {
-    return categories.slice(startIdx, startIdx + layout.children.length);
-  }
-  return [];
-};
-
-const getChildCols = (parentIndex, childIndex) => {
-  const layout = categoryLayout[parentIndex % categoryLayout.length];
-  return layout.children ? layout.children[childIndex].cols : 12;
-};
 </script>
 
 <style scoped>
