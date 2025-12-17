@@ -35,9 +35,6 @@
         <v-btn icon variant="text" :href="socialLinks?.whatsappUrl" target="_blank">
           <v-icon>mdi-whatsapp</v-icon>
         </v-btn>
-        <v-btn icon variant="text" :href="socialLinks?.linkedinUrl" target="_blank">
-          <v-icon>mdi-linkedin</v-icon>
-        </v-btn>
       </div>
     </v-app-bar>
   </div>
@@ -83,7 +80,11 @@ const scrollToSection = (id) => {
   activeSection.value = id;
   const element = document.getElementById(id);
   if (element) {
-    element.scrollIntoView({ behavior: 'smooth' });
+    const navbar = document.querySelector('.v-app-bar');
+    const navbarHeight = navbar ? navbar.offsetHeight : 48;
+    const rect = element.getBoundingClientRect();
+    const offsetTop = rect.top + window.pageYOffset - navbarHeight;
+    window.scrollTo({ top: offsetTop, behavior: 'smooth' });
   }
 };
 </script>

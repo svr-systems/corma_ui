@@ -3,7 +3,7 @@
     <Alert ref="alert" />
     <NavBar />
 
-    <v-main class="pa-0" style="min-height: 100vh;">
+    <v-main style="height: 100vh;">
       <router-view :key="$route.fullPath" />
     </v-main>
   </v-app>

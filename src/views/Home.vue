@@ -1,8 +1,7 @@
 <template>
   <div v-if="appDataStore.visibilityData?.showCarousel && carouselData.length > 0" class="full-width-container">
     <v-carousel
-      v-model="currentSlide"
-      height="100vh"
+      height="95vh"
       show-arrows="hover"
       cycle
       interval="5000"
@@ -32,8 +31,6 @@ const appDataStore = useApiDataStore();
 
 const carouselData = computed(() => appDataStore.getCarouselData);
 
-const currentSlide = ref(0);
-
 // obtener el estilo de background para cada slide
 const getSlideStyle = (image) => {
   if (image?.b64) {
@@ -42,7 +39,7 @@ const getSlideStyle = (image) => {
     };
   }
   return {
-    background: `linear-gradient(135deg, #667eea 0%, #764ba2 100%), rgba(0, 0, 0, 0.5)`
+    background: 'gray'
   };
 };
 
@@ -56,4 +53,5 @@ if (appDataStore.hasError && alert) {
   alert?.show("red-darken-1", `Error al cargar datos: ${appDataStore.error}`);
 }
 </script>
+
 

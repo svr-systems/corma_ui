@@ -64,7 +64,7 @@ onMounted(() => {
   const sections = document.querySelectorAll('[id]');
   const options = {
     root: null,
-    rootMargin: '-50% 0px -50% 0px',
+    rootMargin: '0px 0px -100px 0px',
     threshold: 0
   };
 
@@ -77,7 +77,11 @@ onMounted(() => {
   if (window.location.hash) {
     const element = document.getElementById(window.location.hash.substring(1));
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const navbar = document.querySelector('.v-app-bar');
+      const navbarHeight = navbar ? navbar.offsetHeight : 48;
+      const rect = element.getBoundingClientRect();
+      const offsetTop = rect.top + window.pageYOffset - navbarHeight;
+      window.scrollTo({ top: offsetTop, behavior: 'smooth' });
     }
   }
 });
