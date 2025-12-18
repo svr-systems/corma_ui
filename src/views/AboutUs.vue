@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="24" :disabled="appDataStore.isLoading">
+  <v-card elevation="24" :disabled="isLoading">
     <v-card-text class="pa-0">
       <div class="full-width-container">
         <div v-if="sections.length > 0" class="content-sections">
@@ -50,6 +50,8 @@ const sections = computed(() => {
 import { useApiDataStore } from "@/stores/apiData.js";
 
 const appDataStore = useApiDataStore();
+
+const isLoading = computed(() => appDataStore.isLoading);
 
 // datos desde store global
 const companyInfo = computed(() => appDataStore.getCompanyInfo);

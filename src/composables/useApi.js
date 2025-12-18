@@ -7,7 +7,7 @@ export function useApi(serviceFunction) {
 
   const execute = async (...args) => {
     loading.value = true;
-    error.value = null;
+    error.value = [];
 
     try {
       const result = await serviceFunction(...args);
